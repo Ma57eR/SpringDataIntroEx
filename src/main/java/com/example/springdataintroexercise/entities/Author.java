@@ -1,6 +1,8 @@
 package com.example.springdataintroexercise.entities;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "authors")
 public class Author {
@@ -15,12 +17,16 @@ public class Author {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @OneToMany(targetEntity = Book.class, mappedBy = "author")
+    private Set<Book> books;
+
     public Author() {
     }
 
     public Author(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.books = new HashSet<>();
     }
 
     public long getId() {
@@ -45,5 +51,13 @@ public class Author {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
     }
 }

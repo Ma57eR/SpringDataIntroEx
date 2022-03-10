@@ -2,6 +2,7 @@ package com.example.springdataintroexercise.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity(name = "books")
 public class Book {
@@ -31,17 +32,28 @@ public class Book {
     @Column(nullable = false, name = "age_restriction")
     private AgeRestriction ageRestriction;
 
+    @ManyToOne
+    private Author author;
+
+    @ManyToMany
+    private Set<Category> categories;
+
+    public Author getAuthor() {
+        return author;
+    }
+
     public Book() {
     }
 
-    public Book(String title, String description, EditionType editionType, double price, long copies, LocalDate releaseDate, AgeRestriction ageRestriction) {
+    public Book(String title, EditionType editionType, double price, long copies, LocalDate releaseDate, AgeRestriction ageRestriction, Author author, Set<Category> categories) {
         this.title = title;
-        this.description = description;
         this.editionType = editionType;
         this.price = price;
         this.copies = copies;
         this.releaseDate = releaseDate;
         this.ageRestriction = ageRestriction;
+        this.author = author;
+        this.categories = categories;
     }
 
     public int getId() {
@@ -106,5 +118,17 @@ public class Book {
 
     public void setAgeRestriction(AgeRestriction ageRestriction) {
         this.ageRestriction = ageRestriction;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }
