@@ -34,6 +34,8 @@ public class SeedServiceImpl implements SeedService {
 
     @Autowired
     private AuthorService authorService;
+
+    @Autowired
     private CategoryService categoryService;
 
     @Override

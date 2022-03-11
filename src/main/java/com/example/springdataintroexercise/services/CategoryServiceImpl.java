@@ -12,7 +12,8 @@ import java.util.Set;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    private CategoryRepository categoryRepository;
+
+    private final CategoryRepository categoryRepository;
 
     @Autowired
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
@@ -21,11 +22,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Set<Category> getRandomCategories() {
-
         Random random = new Random();
         long size = this.categoryRepository.count();
 
-        int categoriesCount = random.nextInt((int) size) + 1;
+        int categoriesCount = new Random().nextInt((int) size) + 1;
         Set<Integer> categoriesIds = new HashSet<>();
 
         for (int i = 0; i < categoriesCount; i++) {
@@ -33,8 +33,8 @@ public class CategoryServiceImpl implements CategoryService {
             categoriesIds.add(nextId);
         }
 
-        return (Set<Category>) this.categoryRepository.findAllById(categoriesIds);
+        List<Category> allById = this.categoryRepository.findAllById(categoriesIds);
 
-
+        return new HashSet<>(allById);
     }
 }

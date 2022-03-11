@@ -9,7 +9,7 @@ public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -33,7 +33,7 @@ public class Author {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
